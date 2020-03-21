@@ -6,9 +6,15 @@ class Post < ActiveRecord::Base
     validate :title_must_be_clickbaity
 
     def title_must_be_clickbaity
-        if !title.include? "Won't Believe" || "Secret" || "Top " || "Guess"
-            errors.add :title, "Title is not clickbait-y enough"
+        phrases = ["Won't Believe", "Secret", "Top ","Guess"]
+        ans = nil
+        phrases.each do |phrase|
+            if @title.include? (phrase)
+                ans = true
+                break
+            end
         end
+        ans
     end
     #If the title does not contain "Won't Believe", "Secret", "Top [number]", or "Guess",
 end
